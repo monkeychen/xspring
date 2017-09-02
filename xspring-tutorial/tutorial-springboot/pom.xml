@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.xspring</groupId>
     <artifactId>tutorial-springboot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
