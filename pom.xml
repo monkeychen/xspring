@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>1.5.6.RELEASE</version>
+    </parent>-->
+
     <groupId>org.xspring</groupId>
     <artifactId>xspring-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -11,6 +17,9 @@
 
     <modules>
         <module>xspring-util</module>
+        <module>xspring-core</module>
+        <module>xspring-data</module>
+        <module>xspring-tutorial</module>
     </modules>
 
     <properties>
@@ -20,15 +29,17 @@
         <def.encoding>UTF-8</def.encoding>
         <xspring.version>0.0.1-SNAPSHOT</xspring.version>
         <logback.version>1.2.3</logback.version>
-        <slf4j.version>1.7.5</slf4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
         <guava.version>19.0</guava.version>
         <jsr305.version>3.0.2</jsr305.version>
         <commons.lang.version>3.4</commons.lang.version>
         <commons.collection.version>4.1</commons.collection.version>
-        <spring.framework.version>4.3.10.RELEASE</spring.framework.version>
+        <aspectj.version>1.8.10</aspectj.version>
+        <cglib.version>3.2.0</cglib.version>
+        <spring.version>4.3.10.RELEASE</spring.version>
         <fastjson.version>1.2.31</fastjson.version>
-        <mongodb.driver.version>3.2.2</mongodb.driver.version>
-        <mysql.driver.version>5.1.25</mysql.driver.version>
+        <mongodb.driver.version>3.4.2</mongodb.driver.version>
+        <mysql.driver.version>5.1.43</mysql.driver.version>
         <druid.version>1.0.31</druid.version>
         <junit.version>4.11</junit.version>
     </properties>
@@ -71,14 +82,29 @@
                 <version>${commons.lang.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>${spring.framework.version}</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
-                <version>${spring.framework.version}</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
