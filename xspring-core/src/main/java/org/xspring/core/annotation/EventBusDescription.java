@@ -1,4 +1,4 @@
-package org.xspring.core.eventbus.annotation;
+package org.xspring.core.annotation;
 
 import org.xspring.core.Constants;
 

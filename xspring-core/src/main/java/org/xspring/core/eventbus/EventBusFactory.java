@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.xspring.core.Constants;
 import org.xspring.core.event.Event;
-import org.xspring.core.eventbus.annotation.EventBusDescription;
-import org.xspring.core.eventbus.annotation.EventSubscriber;
+import org.xspring.core.annotation.EventBusDescription;
+import org.xspring.core.annotation.EventSubscriber;
 
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
