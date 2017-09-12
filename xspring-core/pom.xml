@@ -34,6 +34,11 @@
             <artifactId>spring-jdbc</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.xspring</groupId>
             <artifactId>xspring-util</artifactId>
             <version>${project.version}</version>
