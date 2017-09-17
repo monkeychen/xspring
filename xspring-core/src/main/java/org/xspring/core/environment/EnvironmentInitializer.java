@@ -45,7 +45,8 @@ public class EnvironmentInitializer implements SmartLifecycle, InitializingBean 
     private ScheduledExecutorService scheduledExecutorService;
 
     private String[] profileLocations = new String[]{
-            ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/config/env.properties"
+            ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/config/env.properties",
+            ResourceUtils.FILE_URL_PREFIX + "./config/env.properties"
     };
 
     private boolean isRunning = false;

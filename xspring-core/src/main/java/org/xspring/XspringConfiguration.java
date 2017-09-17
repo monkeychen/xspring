@@ -32,6 +32,8 @@ import org.springframework.core.env.Environment;
                 "classpath:/config/xspring.properties",
                 "file:./xspring.properties",
                 "file:./config/xspring.properties",
+                "classpath:/config/env.properties",
+                "file:./config/env.properties",
         },
         ignoreResourceNotFound = true
 )
