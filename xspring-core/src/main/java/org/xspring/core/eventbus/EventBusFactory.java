@@ -119,4 +119,27 @@ public class EventBusFactory {
             logger.info("Success to register bean[id={}, class={}] to EventBus[{}].", beanId, beanClassName, busName);
         }
     }
+
+    public void unRegisterEventSubscriber(ApplicationContext context) {
+        Map<String, Object> beanMap = context.getBeansWithAnnotation(EventSubscriber.class);
+        if (beanMap == null || beanMap.isEmpty()) {
+            return;
+        }
+        for (Map.Entry<String, Object> entry : beanMap.entrySet()) {
+            String beanId = entry.getKey();
+            Object bean = entry.getValue();
+            EventSubscriber subscriber = bean.getClass().getAnnotation(EventSubscriber.class);
+            if (subscriber == null) {
+                continue;
+            }
+            boolean isAsync = subscriber.async();
+            EventBusDescription description = subscriber.description();
+            String busNamePrefix = description.name();
+            String busName = busNamePrefix + (isAsync ? asyncEventBusSuffix : syncEventBusSuffix);
+            String beanClassName = bean.getClass().getSimpleName();
+            EventBus targetEventBus = eventBusCache.get(busName);
+            targetEventBus.unregister(bean);
+            logger.info("Success to unRegister bean[id={}, class={}] from EventBus[{}].", beanId, beanClassName, busName);
+        }
+    }
 }

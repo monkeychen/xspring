@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.SmartLifecycle;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -34,7 +35,7 @@ import java.util.concurrent.TimeUnit;
  * Create at: 2017/5/31 11:56.
  */
 @Component
-public class EnvironmentInitializer implements InitializingBean {
+public class EnvironmentInitializer implements SmartLifecycle, InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(EnvironmentInitializer.class);
 
     private PathMatchingResourcePatternResolver resolver;
@@ -44,10 +45,10 @@ public class EnvironmentInitializer implements InitializingBean {
     private ScheduledExecutorService scheduledExecutorService;
 
     private String[] profileLocations = new String[]{
-            ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/config/*.properties"
+            ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/config/env.properties"
     };
 
-    private boolean running = false;
+    private boolean isRunning = false;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -55,22 +56,6 @@ public class EnvironmentInitializer implements InitializingBean {
         ThreadFactoryBuilder factoryBuilder = new ThreadFactoryBuilder();
         ThreadFactory threadFactory = factoryBuilder.setNameFormat("PropertiesScanThreadPool-%d").build();
         scheduledExecutorService = Executors.newScheduledThreadPool(2, threadFactory);
-        startup();
-    }
-
-    public synchronized void startup() {
-        if (running) {
-            logger.warn("EnvProfileLoader has been startup, so it's not necessary to startup again.");
-            return;
-        }
-        parseResources(profileLocations);
-        startProfileScanTask();
-        running = true;
-    }
-
-    public void shutdown() {
-        running = false;
-        scheduledExecutorService.shutdown();
     }
 
     private void startProfileScanTask() {
@@ -175,5 +160,45 @@ public class EnvironmentInitializer implements InitializingBean {
     private void publishProfileLoadedEvent() {
         // 基于事件总线机制对外发送配置信息加载成功事件
         EventBusFactory.getInstance().post(new PropertiesLoadedEvent());
+    }
+
+    @Override
+    public synchronized void start() {
+        if (isRunning) {
+            logger.warn("EnvironmentInitializer has been startup, so it's not necessary to startup again.");
+            return;
+        }
+        parseResources(profileLocations);
+        startProfileScanTask();
+        isRunning = true;
+        logger.info("Success to startup the EnvironmentInitializer!");
+    }
+
+    @Override
+    public void stop() {
+        isRunning = false;
+        scheduledExecutorService.shutdown();
+        logger.info("Success to shutdown the EnvironmentInitializer!");
+    }
+
+    @Override
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    @Override
+    public boolean isAutoStartup() {
+        return true;
+    }
+
+    @Override
+    public void stop(Runnable callback) {
+        this.stop();
+        callback.run();
+    }
+
+    @Override
+    public int getPhase() {
+        return 10;
     }
 }
