@@ -4,12 +4,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 /**
  * <p>Title: XspringConfiguration框架配置类         </p>
@@ -38,9 +35,6 @@ import org.springframework.core.env.Environment;
         ignoreResourceNotFound = true
 )
 public class XspringConfiguration implements BeanFactoryAware {
-
-    @Autowired
-    private Environment environment;
 
     private ListableBeanFactory beanFactory;
 
