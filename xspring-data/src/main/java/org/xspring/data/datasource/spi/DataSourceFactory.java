@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface DataSourceFactory {
 
-    DataSource getDefaultDataSource();
+    DataSource getDefaultDataSource(Environment environment);
 
     Map<String, DataSource> loadOriginalDataSources(Environment environment);
 }
