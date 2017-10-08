@@ -65,7 +65,7 @@ public class DataSourceInitializer implements EnvironmentAware, BeanFactoryAware
             beanFactory.registerSingleton(name, dataSource); // 将具体的DataSource实例注册进ApplicationContext
             targetDataSourceMap.put(name, dataSource);
         });
-        DataSource defaultDataSource = dataSourceFactory.getDefaultDataSource();
+        DataSource defaultDataSource = dataSourceFactory.getDefaultDataSource(environment);
 
         DynamicDataSource dataSource = new DynamicDataSource();
         dataSource.setTargetDataSources(targetDataSourceMap);
