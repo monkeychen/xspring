@@ -1,1 +1,2 @@
 org.xspring.core.extension.ModuleConfiguration=org.xspring.data.XspringDataConfiguration
+org.xspring.data.datasource.spi.DataSourceFactory=org.xspring.data.datasource.druid.DruidDataSourceFactory

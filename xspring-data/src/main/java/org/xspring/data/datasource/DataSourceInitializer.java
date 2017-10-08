@@ -1,17 +1,23 @@
 package org.xspring.data.datasource;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.collect.Maps;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.support.SpringFactoriesLoader;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.CollectionUtils;
+import org.xspring.data.datasource.spi.DataSourceFactory;
 
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,11 +34,11 @@ import java.util.Map;
         },
         ignoreResourceNotFound = true
 )
-public class DataSourceInitializer implements EnvironmentAware, ApplicationContextAware {
+public class DataSourceInitializer implements EnvironmentAware, BeanFactoryAware {
 
     private Environment environment;
 
-    private ApplicationContext applicationContext;
+    private DefaultListableBeanFactory beanFactory;
 
     @Bean
     public String dummy() {
@@ -41,25 +47,39 @@ public class DataSourceInitializer implements EnvironmentAware, ApplicationConte
 
     @Bean
     public DataSource dataSource() {
-        DynamicDataSource dataSource = new DynamicDataSource();
+        // 加载DataSourceFactory实现类列表，返回的实例已根据@order注解进行升序排序
+        ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
+        List<DataSourceFactory> dataSourceFactories = SpringFactoriesLoader.loadFactories(DataSourceFactory.class, classLoader);
+        if (CollectionUtils.isEmpty(dataSourceFactories)) {
+            throw new BeanCreationException("Not found any DataSourceFactory implementer in class path!");
+        }
+
+        DataSourceFactory dataSourceFactory = dataSourceFactories.get(0);
+        Map<String, DataSource> dataSourceMap = dataSourceFactory.loadOriginalDataSources(environment);
+        if (CollectionUtils.isEmpty(dataSourceMap)) {
+            throw new BeanCreationException("Fail to load any original DataSource instance!");
+        }
+
         Map<Object, Object> targetDataSourceMap = Maps.newHashMap();
-        DruidDataSource defaultDataSource = null;
-        // TODO 解析datasource.properties文件中与数据源有关的配置项并初始化DruidDataSource
+        dataSourceMap.forEach((name, dataSource) -> {
+            beanFactory.registerSingleton(name, dataSource); // 将具体的DataSource实例注册进ApplicationContext
+            targetDataSourceMap.put(name, dataSource);
+        });
+        DataSource defaultDataSource = dataSourceFactory.getDefaultDataSource();
 
-        DruidDataSource druidDataSource = new DruidDataSource();
-
+        DynamicDataSource dataSource = new DynamicDataSource();
         dataSource.setTargetDataSources(targetDataSourceMap);
         dataSource.setDefaultTargetDataSource(defaultDataSource);
         return dataSource;
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = (DefaultListableBeanFactory) beanFactory;
     }
 }
