@@ -6,6 +6,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 
 /**
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @ComponentScan("org.xspring")
+@EnableAspectJAutoProxy
 @PropertySource(
         value = {
                 "classpath:/xspring.properties",
