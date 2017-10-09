@@ -35,6 +35,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
     private static final String KEY_DS_INIT_POOL_SIZE = "initialSize";
     private static final String KEY_DS_MIN_POOL_SIZE = "minPoolSize";
     private static final String KEY_DS_MAX_POOL_SIZE = "maxPoolSize";
+    private static final String KEY_DS_MAX_WAIT = "maxWait";
     private static final String KEY_DS_POOL_FILTERS = "poolFilters";
 
     private DataSource defaultDataSource;
@@ -86,6 +87,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         Integer initialSize = getProperty(environment, i, KEY_DS_INIT_POOL_SIZE, Integer.class, 10);
         Integer minPoolSize = getProperty(environment, i, KEY_DS_MIN_POOL_SIZE, Integer.class, 5);
         Integer maxPoolSize = getProperty(environment, i, KEY_DS_MAX_POOL_SIZE, Integer.class, 10);
+        Long maxWait = getProperty(environment, i, KEY_DS_MAX_WAIT, Long.class, 60000L);
         String poolFilters = getProperty(environment, i, KEY_DS_POOL_FILTERS);
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClassName);
@@ -95,6 +97,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         dataSource.setInitialSize(initialSize);
         dataSource.setMinIdle(minPoolSize);
         dataSource.setMaxActive(maxPoolSize);
+        dataSource.setMaxWait(maxWait);
         try {
             dataSource.setFilters(poolFilters);
         } catch (SQLException e) {
