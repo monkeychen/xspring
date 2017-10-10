@@ -16,7 +16,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>xspring-util</module>
         <module>xspring-core</module>
         <module>xspring-data</module>
         <module>xspring-tutorial</module>

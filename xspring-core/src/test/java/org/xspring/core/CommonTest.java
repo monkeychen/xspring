@@ -1,4 +1,4 @@
-package org.xspring.util;
+package org.xspring.core;
 
 import org.junit.Test;
 
