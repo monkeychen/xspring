@@ -13,6 +13,8 @@ import org.springframework.context.annotation.PropertySource;
  * <p>Title: XspringConfiguration框架配置类         </p>
  * <p>Description: 框架启动时按如下顺序加载配置文件
  * <ol>
+ *     <li>file:./config/env.properties</li>
+ *     <li>classpath:/config/env.properties</li>
  *     <li>file:./config/xspring.properties</li>
  *     <li>file:./xspring.properties</li>
  *     <li>classpath:./config/xspring.properties</li>
