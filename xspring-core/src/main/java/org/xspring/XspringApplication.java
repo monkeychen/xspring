@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.util.ClassUtils;
 import org.xspring.core.extension.ModuleConfiguration;
@@ -27,7 +28,6 @@ public class XspringApplication {
 
     public ConfigurableApplicationContext run(Class<?> annotatedClass, String[] args) {
         logger.debug("The input arguments is:{}, {}", annotatedClass, args);
-        AnnotationConfigApplicationContext context = null;
         // Load other configurations in spring.factories file
         ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
         List<String> factoryNames = SpringFactoriesLoader.loadFactoryNames(ModuleConfiguration.class, classLoader);
@@ -37,7 +37,12 @@ public class XspringApplication {
             for (String factoryName : factoryNames) {
                 try {
                     Class factoryClass = ClassUtils.forName(factoryName, classLoader);
-                    moduleConfigClasses.add(factoryClass);
+                    if (factoryClass.isAnnotationPresent(Configuration.class)) {
+                        moduleConfigClasses.add(factoryClass);
+                    } else {
+                        logger.warn("ModuleConfiguration[{}] does not be annotated with annotation[{}], so ignored!",
+                                factoryName, Configuration.class.getName());
+                    }
                 } catch (ClassNotFoundException e) {
                     logger.warn("Can not find the matched class[{}] in classpath!", factoryName);
                 }
@@ -47,7 +52,7 @@ public class XspringApplication {
             moduleConfigClasses.add(annotatedClass);
         }
         Class[] configurations = moduleConfigClasses.toArray(new Class[moduleConfigClasses.size()]);
-        context = new AnnotationConfigApplicationContext(configurations);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configurations);
         context.start();
         return context;
     }

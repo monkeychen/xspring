@@ -5,10 +5,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.SpringFactoriesLoader;
@@ -26,7 +26,7 @@ import java.util.Map;
  * <p>Copyright: Copyright (c) 2017  </p>
  * <p>Create Time: 2017/9/3 下午7:47 by ChenZhian            </p>
  */
-@Configurable
+@Configuration
 @PropertySource(
         value = {
                 "classpath:/config/datasource.properties",
