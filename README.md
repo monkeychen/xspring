@@ -124,5 +124,16 @@ xspring-data组件的模块定义（启动）类为：`XspringDataConfiguration`
     }
 ```
 
-### xspring-tutorial组件
-> 该组件用于放置各种开源框架的使用演示案例。
+### xspring-tutorial组件
+> 该组件用于放置各种开源框架的使用演示案例。
+
+
+### 源码质量分析
+
+```bash
+# https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven
+mvn sonar:sonar \
+  -Dsonar.organization=monkeychen-github \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=296c5493d14d57c4eb1877f7a49dc2f0bd755434
+```
