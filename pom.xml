@@ -41,6 +41,7 @@
         <mysql.driver.version>5.1.43</mysql.driver.version>
         <druid.version>1.0.31</druid.version>
         <junit.version>4.12</junit.version>
+        <cucumber.version>3.0.2</cucumber.version>
         <!-- Sonar -->
         <!-- The destination file for the code coverage report has to be set to the same value
              in the parent pom and in each module pom. Then JaCoCo will add up information in
