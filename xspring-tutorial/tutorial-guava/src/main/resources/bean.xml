@@ -2,12 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:ext="http://www.xspring.org/schema/ext"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/beans/spring-tx.xsd">
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/beans/spring-tx-4.3.xsd
+       http://www.xspring.org/schema/ext http://www.xspring.org/schema/ext.xsd">
 
-    <tx:annotation-driven />
+    <!--<tx:annotation-driven />-->
 
     <bean id="demo_str" class="java.lang.String"/>
 
+    <ext:dateformat id="dateFormat" lenient="true"/>
 </beans>

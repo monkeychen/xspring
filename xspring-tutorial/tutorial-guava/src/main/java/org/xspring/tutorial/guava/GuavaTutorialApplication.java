@@ -3,7 +3,12 @@ package org.xspring.tutorial.guava;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * <p>Title: GuavaTutorialApplication</p>
@@ -14,13 +19,16 @@ import org.springframework.core.io.ClassPathResource;
  */
 public class GuavaTutorialApplication {
     public static void main(String[] args) {
-        BeanDefinitionRegistry beanFactory = new DefaultListableBeanFactory();
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-        ClassPathResource resource = new ClassPathResource("bean.xml");
-
-        reader.loadBeanDefinitions(resource);
-
-        String str = (String) ((DefaultListableBeanFactory) beanFactory).getBean("demo_str");
-        System.out.println("str bean:" + str);
+//        BeanDefinitionRegistry beanFactory = new DefaultListableBeanFactory();
+//        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+//        ClassPathResource resource = new ClassPathResource("bean.xml");
+//
+//        reader.loadBeanDefinitions(resource);
+//
+//        String str = (String) ((DefaultListableBeanFactory) beanFactory).getBean("demo_str");
+//        System.out.println("str bean:" + str);
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
+        SimpleDateFormat info = (SimpleDateFormat) context.getBean("dateFormat");
+        System.out.println(info.format(new Date()));
     }
 }
