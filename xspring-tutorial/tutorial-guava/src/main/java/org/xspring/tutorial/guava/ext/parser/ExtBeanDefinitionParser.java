@@ -40,8 +40,8 @@ public class ExtBeanDefinitionParser extends AbstractSingleBeanDefinitionParser 
     }
 
     private void parseDateFormat(Element element, BeanDefinitionBuilder builder) {
-//        String pattern = element.getAttribute("pattern");
-//        builder.addPropertyValue("pattern", pattern);
+        String pattern = element.getAttribute("pattern");
+        builder.addConstructorArgValue(pattern);
 
         String lenient = element.getAttribute("lenient");
         if (StringUtils.hasText(lenient)) {

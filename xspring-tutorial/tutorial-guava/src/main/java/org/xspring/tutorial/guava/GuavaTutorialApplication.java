@@ -28,7 +28,7 @@ public class GuavaTutorialApplication {
 //        String str = (String) ((DefaultListableBeanFactory) beanFactory).getBean("demo_str");
 //        System.out.println("str bean:" + str);
         ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
-        SimpleDateFormat info = (SimpleDateFormat) context.getBean("dateFormat");
+        SimpleDateFormat info = (SimpleDateFormat) context.getBean("defaultDateFormat");
         System.out.println(info.format(new Date()));
 
         System.out.println(context.getBean("simiam_id"));

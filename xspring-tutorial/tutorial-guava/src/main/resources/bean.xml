@@ -12,7 +12,7 @@
 
     <bean id="demo_str" class="java.lang.String"/>
 
-    <ext:dateformat id="dateFormat" lenient="true"/>
+    <ext:dateformat id="defaultDateFormat" pattern="yyyy-MM-dd HH:mm:ss" lenient="true"/>
 
     <ext:user name="simiam" id="simiam_id" email="simiam@abc.com" />
 </beans>
