@@ -13,6 +13,8 @@ import org.xspring.tutorial.guava.ext.parser.ExtBeanDefinitionParser;
 public class ExtNamespaceHandler extends NamespaceHandlerSupport {
     @Override
     public void init() {
-        registerBeanDefinitionParser("dateformat", new ExtBeanDefinitionParser());
+        ExtBeanDefinitionParser parser = new ExtBeanDefinitionParser();
+        registerBeanDefinitionParser("dateformat", parser);
+        registerBeanDefinitionParser("user", parser);
     }
 }

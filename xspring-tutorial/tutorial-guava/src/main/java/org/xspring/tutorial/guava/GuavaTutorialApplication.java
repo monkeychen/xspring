@@ -30,5 +30,7 @@ public class GuavaTutorialApplication {
         ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
         SimpleDateFormat info = (SimpleDateFormat) context.getBean("dateFormat");
         System.out.println(info.format(new Date()));
+
+        System.out.println(context.getBean("simiam_id"));
     }
 }
