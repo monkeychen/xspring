@@ -88,7 +88,6 @@ public class FileDemo {
 //        System.out.println(Arrays.toString(arr));
         arr[0] = 5;
         System.out.println(Arrays.toString(arr));
-        System.out.println(Demoable.aaa);
         //new FileDemo();
 
         class c1 {
