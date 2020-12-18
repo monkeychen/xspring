@@ -1,0 +1,26 @@
+server:
+  port: 8189
+  servlet:
+    context-path: /demo
+
+spring:
+  application:
+    name: demo
+  jmx:
+    default-domain: gateway_demo
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dss?useUnicode=true&characterEncoding=UTF8
+    username: root
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+debug: true
