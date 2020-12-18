@@ -15,6 +15,7 @@
     <modules>
         <module>tutorial-springboot</module>
         <module>tutorial-guava</module>
+        <module>tutorial-hadoop</module>
     </modules>
 
 
