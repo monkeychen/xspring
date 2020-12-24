@@ -245,16 +245,17 @@ public class BasicDemo {
     }
 
     public static void main(String[] args) {
-        System.out.println(getRowList("scores"));
-        createTable("api_table", "apics");
-        saveOrUpdate("api_table", "NewUser", "apics", "new_column_1", "simiam1");
-        saveOrUpdate("api_table", "NewUser", "apics", "new_column_2", "simiam2");
-        System.out.println(getCellValue("api_table", "NewUser", "apics", "new_column_1"));
-        System.out.println(getFamily("api_table", "NewUser", "apics"));
-        System.out.println(getRow("api_table", "NewUser"));
-        System.out.println(getRowList("api_table"));
-        deleteRow("api_table", "NewUser");
-        System.out.println(getRowList("api_table"));
-        dropTable("api_table");
+//        System.out.println(getRowList("scores"));
+//        createTable("api_table", "apics");
+//        saveOrUpdate("api_table", "NewUser", "apics", "new_column_1", "simiam1");
+//        saveOrUpdate("api_table", "NewUser", "apics", "new_column_2", "simiam2");
+//        System.out.println(getCellValue("api_table", "NewUser", "apics", "new_column_1"));
+//        System.out.println(getFamily("api_table", "NewUser", "apics"));
+//        System.out.println(getRow("api_table", "NewUser"));
+//        System.out.println(getRowList("api_table"));
+//        deleteRow("api_table", "NewUser");
+//        System.out.println(getRowList("api_table"));
+//        dropTable("api_table");
+        System.out.println("===========>>>>" + getCellValue("namelist", "song1", "details", "rank"));
     }
 }
